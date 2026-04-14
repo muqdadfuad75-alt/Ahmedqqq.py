@@ -1,0 +1,57 @@
+import itertools
+import random
+
+
+names = ["Ali", "Mustafa"]
+years = ["1990"]
+football = ["Messi"]
+cars = ["Nissan"]
+cats = ["Siri"]
+sons = ["Ahmed"]
+
+words = names + years + football + cars + cats + sons
+
+
+symbols = ["@", "#", "$", "_", "&", "!"]
+numbers = [str(i) for i in range(0, 100)]  # 0-99
+
+passwords = set()
+
+
+for i in range(2, 6):
+    for combo in itertools.permutations(words, i):
+        base = "".join(combo)
+        
+       
+        variations = set()
+        for _ in range(5):  
+            variant = "".join(random.choice([c.upper(), c.lower()]) for c in base)
+            variations.add(variant)
+        
+    
+        for var in variations:
+            for sym in symbols:
+                for num in numbers:
+                    passwords.add(var)
+                    passwords.add(var + num)
+                    passwords.add(var + sym)
+                    passwords.add(var + sym + num)
+                    passwords.add(num + var)
+                    passwords.add(sym + var)
+                    if len(passwords) > 150000: 
+                        break
+                if len(passwords) > 150000:
+                    break
+            if len(passwords) > 150000:
+                break
+        if len(passwords) > 150000:
+            break
+    if len(passwords) > 150000:
+        break
+
+
+with open("passwords_large.txt", "w") as f:
+    for p in passwords:
+        f.write(p + "\n")
+
+print(f" {len(passwords)}  ")
